@@ -1,0 +1,175 @@
+<!-- ============================================================
+  RETO: "Digitaliza un Caso" — Protección de Datos
+  Autocontenido: pega este bloque donde quieras en tu página.
+  Opcional: coloca proteccion-de-datos-icono-128.png junto al HTML
+  (si no está, el icono se oculta y el reto sigue funcionando).
+============================================================ -->
+<style>
+  #reto-dd{--navy:#0f2a6b;--blue:#2563eb;--sky:#38bdf8;--gold:#f59e0b;--goldl:#ffe066;--ok:#16a34a;--bad:#dc2626;--ink:#16213e;--bg:#f1f6ff;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);max-width:760px;margin:0 auto;
+    background:linear-gradient(160deg,#eaf3ff,#fff);border:3px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(15,42,107,.25)}
+  #reto-dd *{box-sizing:border-box}
+  #reto-dd .hd{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(90deg,var(--navy),var(--blue));color:#fff}
+  #reto-dd .hd img{width:48px;height:48px}
+  #reto-dd .hd h2{margin:0;font-size:1.15rem;line-height:1.2}
+  #reto-dd .hd small{opacity:.85}
+  #reto-dd .stats{margin-left:auto;display:flex;gap:10px;font-weight:700;font-size:.9rem}
+  #reto-dd .pill{background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;white-space:nowrap}
+  #reto-dd .bd{padding:18px}
+  #reto-dd h3{margin:.2em 0 .4em}
+  #reto-dd p{line-height:1.5;margin:.4em 0}
+  #reto-dd .btn{border:0;cursor:pointer;font:inherit;font-weight:800;border-radius:12px;padding:12px 18px;transition:transform .12s,box-shadow .12s}
+  #reto-dd .btn:hover:not(:disabled){transform:translateY(-2px)}
+  #reto-dd .btn:disabled{opacity:.45;cursor:default}
+  #reto-dd .go{background:linear-gradient(180deg,var(--goldl),var(--gold));color:#3b2300;box-shadow:0 4px 0 #b86e00;font-size:1.05rem}
+  #reto-dd .bar{height:12px;background:#d6e4ff;border-radius:99px;overflow:hidden;margin:4px 0 14px}
+  #reto-dd .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--blue));transition:width .4s}
+  #reto-dd .shield i{background:linear-gradient(90deg,var(--goldl),var(--gold))}
+  #reto-dd .lbl{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;color:#475a8a}
+  #reto-dd .file{background:#fffdf5;border:2px dashed #c9b26b;border-radius:14px;padding:10px 12px;margin-bottom:14px;position:relative}
+  #reto-dd .file::before{content:"EXPEDIENTE EN PAPEL · Nº 2417";display:block;font-size:.7rem;letter-spacing:.12em;color:#8a7a3a;font-weight:800;margin-bottom:6px}
+  #reto-dd .row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:2px solid transparent;opacity:.55;transition:.2s}
+  #reto-dd .row.cur{opacity:1;background:#fff3c4;border-color:var(--gold);transform:scale(1.01)}
+  #reto-dd .row.done{opacity:1}
+  #reto-dd .row b{min-width:140px;font-size:.85rem;color:#6b5d20}
+  #reto-dd .row span.v{flex:1;font-family:"Courier New",monospace;font-size:.95rem}
+  #reto-dd .chip{font-size:.75rem;font-weight:800;border-radius:99px;padding:3px 10px;color:#fff;white-space:nowrap}
+  #reto-dd .chip.ok{background:var(--ok)}#reto-dd .chip.ko{background:var(--bad)}
+  #reto-dd .q{background:#fff;border:2px solid #c7d8ff;border-radius:14px;padding:14px}
+  #reto-dd .acts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  #reto-dd .acts .btn{background:#eef4ff;color:var(--navy);border:2px solid #bcd1ff;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.9rem}
+  #reto-dd .acts .btn span{font-size:1.6rem}
+  #reto-dd .acts .btn:hover:not(:disabled){background:#dbe8ff;border-color:var(--blue)}
+  #reto-dd .fb{margin-top:12px;padding:12px;border-radius:12px;font-size:.95rem;display:none}
+  #reto-dd .fb.ok{display:block;background:#e7f8ed;border:2px solid var(--ok)}
+  #reto-dd .fb.ko{display:block;background:#fdeaea;border:2px solid var(--bad)}
+  #reto-dd .fb .btn{margin-top:8px;background:var(--blue);color:#fff;padding:9px 16px}
+  #reto-dd .end{text-align:center}
+  #reto-dd .end .big{font-size:3.2rem;margin:0}
+  #reto-dd .end .sc{font-size:1.6rem;font-weight:900;color:var(--blue)}
+  #reto-dd .rev{text-align:left;margin:12px 0;padding:0;list-style:none;font-size:.88rem}
+  #reto-dd .rev li{padding:6px 10px;border-radius:8px;margin:4px 0;background:#f1f6ff}
+  #reto-dd .hide{display:none!important}
+  @media(max-width:560px){#reto-dd .acts{grid-template-columns:1fr}#reto-dd .acts .btn{flex-direction:row;justify-content:center}
+    #reto-dd .row{flex-wrap:wrap}#reto-dd .row b{min-width:100%}#reto-dd .hd{flex-wrap:wrap}#reto-dd .stats{margin-left:0;width:100%}}
+</style>
+
+<div id="reto-dd" aria-live="polite">
+  <div class="hd">
+    <img src="proteccion-de-datos-icono-128.png" alt="" onerror="this.style.display='none'">
+    <div><h2>Digitaliza un Caso</h2><small>Reto · Protección de Datos</small></div>
+    <div class="stats"><span class="pill">⭐ <span id="dd-pts">0</span></span><span class="pill">🔥 x<span id="dd-str">0</span></span></div>
+  </div>
+
+  <!-- PANTALLA 1: intro -->
+  <div class="bd" id="dd-intro">
+    <h3>🎯 Tu misión</h3>
+    <p>Llega a tu mesa un <b>expediente en papel</b> de una clienta, <b>Laura Gómez</b>. Debes pasarlo al sistema digital de la empresa.</p>
+    <p>Para cada dato decide qué hacer: <b>💾 Guardar</b> (es necesario y de riesgo normal), <b>🔐 Proteger</b> (es necesario pero sensible: cifrado y acceso restringido) o <b>🗑️ No digitalizar</b> (no hace falta o es excesivo).</p>
+    <p>Mantén tu <b>escudo</b> al 100 % y encadena aciertos para ganar bonus.</p>
+    <p style="text-align:center;margin-top:18px"><button class="btn go" id="dd-start">🚀 Empezar el reto</button></p>
+  </div>
+
+  <!-- PANTALLA 2: juego -->
+  <div class="bd hide" id="dd-game">
+    <div class="lbl"><span>Progreso</span><span id="dd-prog">0 / 6</span></div>
+    <div class="bar"><i id="dd-pbar"></i></div>
+    <div class="lbl"><span>🛡️ Escudo</span><span id="dd-sh">100%</span></div>
+    <div class="bar shield"><i id="dd-sbar" style="width:100%"></i></div>
+    <div class="file" id="dd-file"></div>
+    <div class="q">
+      <p><b id="dd-qt"></b></p>
+      <div class="acts">
+        <button class="btn" data-a="guardar"><span>💾</span>Guardar</button>
+        <button class="btn" data-a="proteger"><span>🔐</span>Proteger</button>
+        <button class="btn" data-a="descartar"><span>🗑️</span>No digitalizar</button>
+      </div>
+      <div class="fb" id="dd-fb"></div>
+    </div>
+  </div>
+
+  <!-- PANTALLA 3: final -->
+  <div class="bd end hide" id="dd-end">
+    <p class="big" id="dd-medal">🛡️</p>
+    <h3 id="dd-rank"></h3>
+    <p class="sc"><span id="dd-fpts">0</span> puntos</p>
+    <p id="dd-msg"></p>
+    <ul class="rev" id="dd-rev"></ul>
+    <button class="btn go" id="dd-retry">🔁 Volver a intentarlo</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var NOMBRE={guardar:"💾 Guardar",proteger:"🔐 Proteger",descartar:"🗑️ No digitalizar"};
+  var DATA=[
+    {k:"Nombre y email",v:"Laura Gómez · laura.gomez@mail.com",a:"guardar",
+     ok:"Son datos identificativos básicos y necesarios para gestionar el caso y contactar con ella. Riesgo normal: acceso solo para el personal autorizado.",
+     ko:"Son datos de contacto necesarios para el servicio y de riesgo normal, así que se guardan con las medidas habituales."},
+    {k:"Motivo de consulta",v:"Tratamiento por diabetes tipo 2",a:"proteger",
+     ok:"Es un dato de salud, categoría especial. Se necesita, pero exige cifrado y acceso restringido.",
+     ko:"Un dato de salud es de categoría especial: guardarlo sin más es insuficiente. Requiere cifrado y acceso restringido."},
+    {k:"Religión",v:"Católica practicante",a:"descartar",
+     ok:"No es necesario para el servicio. Principio de minimización: si no lo necesitas, no lo recojas.",
+     ko:"No hay ninguna finalidad que lo justifique. Es un dato especialmente sensible e innecesario: no se digitaliza."},
+    {k:"Cuenta bancaria",v:"ES91 2100 0418 4502 0005 1332",a:"proteger",
+     ok:"Se necesita para facturar, pero es un dato financiero de alto riesgo: cifrado y acceso muy limitado.",
+     ko:"Se necesita para cobrar, pero un fallo aquí permite fraudes. Debe protegerse con cifrado y permisos restringidos."},
+    {k:"Copia completa del DNI",v:"Foto del anverso y reverso",a:"descartar",
+     ok:"Basta con verificar la identidad y anotar que se hizo. Conservar la copia completa es excesivo.",
+     ko:"Guardar la copia entera es excesivo y arriesgado (suplantación de identidad). Se verifica y no se almacena."},
+    {k:"Nota adhesiva",v:"Portal clientes: usuario laura / clave 1234",a:"descartar",
+     ok:"Las contraseñas no se guardan en claro ni se copian al sistema. Además, debe pedirse un cambio de clave.",
+     ko:"Nunca se digitalizan contraseñas en texto plano. Hay que descartarla y recomendar un cambio de clave."}
+  ];
+  var $=function(id){return document.getElementById(id)};
+  var i,pts,streak,shield,res,locked;
+
+  function show(id){["dd-intro","dd-game","dd-end"].forEach(function(x){$(x).classList.toggle("hide",x!==id)})}
+  function stats(){$("dd-pts").textContent=pts;$("dd-str").textContent=streak;
+    $("dd-sh").textContent=shield+"%";$("dd-sbar").style.width=shield+"%";
+    $("dd-prog").textContent=Math.min(i,DATA.length)+" / "+DATA.length;
+    $("dd-pbar").style.width=(Math.min(i,DATA.length)/DATA.length*100)+"%"}
+  function renderFile(){
+    $("dd-file").innerHTML=DATA.map(function(d,n){
+      var r=res[n],cls=n===i?"cur":(r?"done":"");
+      var chip=r?'<span class="chip '+(r.ok?"ok":"ko")+'">'+(r.ok?"✔ ":"✖ ")+NOMBRE[r.pick]+'</span>':"";
+      return '<div class="row '+cls+'"><b>'+d.k+'</b><span class="v">'+d.v+'</span>'+chip+'</div>'}).join("")}
+  function ask(){
+    locked=false;renderFile();stats();
+    $("dd-qt").textContent="¿Qué haces con «"+DATA[i].k+"»?";
+    $("dd-fb").className="fb";$("dd-fb").innerHTML="";
+    document.querySelectorAll("#reto-dd .acts .btn").forEach(function(b){b.disabled=false})}
+  function pick(a){
+    if(locked)return;locked=true;
+    var d=DATA[i],ok=a===d.a;
+    document.querySelectorAll("#reto-dd .acts .btn").forEach(function(b){b.disabled=true});
+    if(ok){streak++;pts+=100+(streak>1?(streak-1)*20:0)}else{streak=0;shield=Math.max(0,shield-20)}
+    res[i]={pick:a,ok:ok};i++;
+    var fb=$("dd-fb");fb.className="fb "+(ok?"ok":"ko");
+    fb.innerHTML=(ok?"<b>✅ ¡Correcto!</b> ":"<b>❌ No exactamente.</b> Lo correcto era <b>"+NOMBRE[d.a]+"</b>. ")+(ok?d.ok:d.ko)+
+      '<br><button class="btn" id="dd-next">'+(i<DATA.length?"Siguiente dato →":"Ver resultado 🏁")+'</button>';
+    $("dd-next").onclick=function(){i<DATA.length?ask():finish()};
+    renderFile();stats()}
+  function finish(){
+    var good=res.filter(function(r){return r.ok}).length,rank,medal,msg;
+    if(good===6){rank="Guardián de Datos";medal="🛡️";msg="¡Digitalización impecable! Recogiste solo lo necesario y protegiste lo sensible."}
+    else if(good>=4){rank="Defensor de Datos";medal="🥈";msg="Muy bien. Repasa los fallos para llegar a la protección perfecta."}
+    else if(good>=2){rank="Aprendiz de Datos";medal="🥉";msg="Vas por buen camino. Recuerda: ¿es necesario? ¿es sensible?"}
+    else{rank="Novato de Datos";medal="🔰";msg="Todos empezamos así. Inténtalo de nuevo con calma."}
+    $("dd-medal").textContent=medal;$("dd-rank").textContent=rank;$("dd-fpts").textContent=pts;$("dd-msg").textContent=msg;
+    $("dd-rev").innerHTML=DATA.map(function(d,n){return "<li>"+(res[n].ok?"✔":"✖")+" <b>"+d.k+"</b> → "+NOMBRE[d.a]+"</li>"}).join("");
+// Guardar insignia al completar el reto
+if(good >= 4)
+{
+    localStorage.setItem(
+        "gestorDocumental",
+        "true");
+}
+    try{window.dispatchEvent(new CustomEvent("reto-dd-finalizado",{detail:{puntos:pts,aciertos:good,total:DATA.length,rango:rank}}))}catch(e){}}
+  function start(){i=0;pts=0;streak=0;shield=100;res=[];show("dd-game");ask()}
+
+  $("dd-start").onclick=start;$("dd-retry").onclick=start;
+  document.querySelectorAll("#reto-dd .acts .btn").forEach(function(b){b.onclick=function(){pick(b.getAttribute("data-a"))}});
+})();
+</script>
